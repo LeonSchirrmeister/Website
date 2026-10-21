@@ -30,12 +30,13 @@ Ohne eBay-Zugangsdaten zeigt die Seite **Beispielartikel** (Demo-Modus).
 5. **eBay:** In Netlify unter *Site configuration → Environment variables* eintragen:
    - `EBAY_CLIENT_ID` (App ID, Production)
    - `EBAY_CLIENT_SECRET` (Cert ID, Production, geheim)
-   - `EBAY_SELLER` (Leons eBay-Verkäufername)
-   - `EBAY_CATEGORY_IDS` (Kategorie-IDs, in denen Leon verkauft, kommagetrennt)
+   - `EBAY_SELLER` = `modellbahn-schirrmeister` (Leons eBay-Verkäufername)
+   - `EBAY_CATEGORY_IDS` = `22128` (Spielzeug › Modellbau inkl. aller Unterkategorien; nur eine ID)
    - optional `EBAY_MARKETPLACE` (Standard `EBAY_DE`)
    Danach neu deployen. Unter `/api/artikel` steht dann `"modus": "live"`.
 6. **Domain:** In Netlify die Domain hinzufügen, bei Strato die DNS-Einträge auf Netlify zeigen lassen (wie beim Schützenverein). E-Mail-Einträge (MX) bei Strato nicht anfassen.
-7. **Vor dem Livegang:** Platzhalter in eckigen Klammern ersetzen (geht alles im CMS), Impressum und Datenschutz prüfen, Formular testen.
+7. **Hinweis:** Die Öffnungszeiten stehen zusätzlich für Google fest in `index.html` (Block `application/ld+json`). Ändern sich die Zeiten dauerhaft, dort mit anpassen.
+8. **Vor dem Livegang:** Platzhalter in eckigen Klammern ersetzen (geht alles im CMS), Impressum und Datenschutz prüfen, Formular testen.
 
 ## Für Leon: Inhalte ändern
 
