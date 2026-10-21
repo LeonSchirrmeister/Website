@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop – Leon Schirrmeister Modellbahnen</title>
+<meta name="description" content="Alle aktuellen Modellbahn-Angebote von Leon Schirrmeister Modellbahnen aus Münster – automatisch aktuell aus unserem eBay-Shop.">
+<meta property="og:title" content="Shop – Leon Schirrmeister Modellbahnen">
+<meta property="og:image" content="/assets/img/logo.png">
+<meta name="theme-color" content="#26364B">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/main.js" defer></script>
+</head>
+<body data-seite="shop">
+
+<a class="visually-hidden" href="#inhalt">Zum Inhalt springen</a>
+
+<div class="hinweis" data-hinweis hidden></div>
+
+<header class="kopf">
+  <div class="container kopf-inner">
+    <a class="marke" href="/">
+      <img src="/assets/img/logo-klein.webp" alt="" width="56" height="56">
+      <span class="marke-text">
+        <span class="marke-name">Leon Schirrmeister</span>
+        <span class="marke-zusatz">Modellbahnen · Münster</span>
+      </span>
+    </a>
+    <nav class="hauptmenue" aria-label="Hauptmenü">
+      <a href="/#zeiten">Öffnungszeiten</a>
+      <a href="/#anfahrt">Anfahrt</a>
+      <a href="/#kontakt">Kontakt</a>
+      <a class="btn btn-navy" href="/shop.html" aria-current="page">Zum Shop</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inhalt">
+
+  <section class="dunkel">
+    <div class="container shop-kopf-inner">
+      <div class="shop-kopf-text">
+        <span class="kicker">Gleis 1 · Online-Shop</span>
+        <h1 data-inhalt="shop.titel">Unsere Artikel</h1>
+        <p data-inhalt="shop.text">Alle Angebote aus unserem eBay-Shop – automatisch aktuell. Kauf, Bezahlung und Versand laufen sicher über eBay.</p>
+      </div>
+      <div class="zaehler" aria-live="polite">
+        <strong data-anzahl>–</strong>
+        <span>Artikel aktuell im Angebot</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container filterleiste">
+    <div class="kategorien" role="group" aria-label="Nach Kategorie filtern" data-kategorien></div>
+    <label class="suche">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A524D" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+      <span class="visually-hidden">Artikel suchen</span>
+      <input type="search" placeholder="Artikel suchen, z. B. BR 01" data-suche>
+    </label>
+  </div>
+
+  <section class="container shop-raster" aria-label="Artikel">
+    <ul class="artikel-raster" data-artikel-liste aria-live="polite"></ul>
+  </section>
+
+  <div class="container shop-mehr">
+    <button class="btn btn-navy" type="button" data-mehr hidden>Weitere Artikel laden</button>
+    <a class="btn btn-navy-rand" data-ebay-shop href="https://www.ebay.de" target="_blank" rel="noopener">Direkt zum eBay-Shop</a>
+    <p><span data-inhalt="shop.nicht_gefunden">Etwas nicht gefunden? Fragen Sie uns – wir suchen gern für Sie.</span> <a href="/#kontakt">Zum Kontakt</a></p>
+  </div>
+
+</main>
+
+<footer class="fuss">
+  <div class="container"><div class="gleis"></div></div>
+  <div class="container fuss-inner">
+    <span class="fuss-name">Leon Schirrmeister · Münster</span>
+    <nav aria-label="Rechtliches">
+      <a href="/">Startseite</a>
+      <a href="/impressum.html">Impressum</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
