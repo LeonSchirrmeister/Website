@@ -127,6 +127,7 @@ a.info-wert:hover { color: var(--navy); text-decoration: underline; }
 .tafel-zeile:last-child { border-bottom: none; }
 .tafel-zeile dt { margin: 0; }
 .tafel-zeile dd { margin: 0; color: var(--gold); text-align: right; }
+.tafel-zeile dd span { display: block; white-space: nowrap; }
 .tafel-zeile.heute dt::after { content: "Heute"; margin-left: 12px; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; background: var(--gold); color: var(--tinte); padding: 2px 8px; border-radius: 3px; vertical-align: 3px; }
 .zusatz { margin: 0; font-size: 16px; color: rgba(243, 241, 236, .8); }
 .karte { height: 300px; border-radius: var(--radius); background-color: var(--navy-hell); background-image: repeating-linear-gradient(135deg, rgba(243,241,236,.05) 0 12px, transparent 12px 24px); display: flex; align-items: flex-end; padding: 20px; font-size: 14px; color: rgba(243, 241, 236, .8); overflow: hidden; }
