@@ -99,7 +99,7 @@
     var bild = el('div', { class: 'artikel-bild' });
     if (a.bild) bild.appendChild(el('img', { src: a.bild, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' }));
     else bild.textContent = 'Kein Bild';
-    var meta = [a.kategorie, a.zustand].filter(Boolean).join(' · ');
+    var meta = [a.kategorie === 'Sonstiges' ? a.unterkategorie : a.kategorie, a.zustand].filter(Boolean).join(' · ');
     return el('li', { class: 'artikel' }, [
       bild,
       el('div', { class: 'artikel-body' }, [
