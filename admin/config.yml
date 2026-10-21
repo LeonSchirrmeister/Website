@@ -1,0 +1,82 @@
+# Bearbeitungsoberfläche (Decap CMS) für Leon
+# Login über GitHub. Vor dem Livegang "repo" auf Leons GitHub-Repository setzen.
+backend:
+  name: github
+  repo: LeonSchirrmeister/Website
+  branch: main
+  commit_messages:
+    update: "Inhalt geändert: {{slug}}"
+    uploadMedia: "Bild hochgeladen: {{path}}"
+
+locale: de
+site_url: https://www.LEONS-DOMAIN.de          # ← anpassen
+display_url: https://www.LEONS-DOMAIN.de       # ← anpassen
+logo_url: /assets/img/logo-klein.webp
+
+media_folder: assets/img/uploads
+public_folder: /assets/img/uploads
+
+collections:
+  - name: inhalte
+    label: Website-Inhalte
+    editor:
+      preview: false
+    files:
+
+      - name: oeffnungszeiten
+        label: "Öffnungszeiten"
+        file: content/oeffnungszeiten.json
+        fields:
+          - label: "Tage"
+            name: tage
+            widget: list
+            allow_add: false
+            summary: "{{fields.tag}}: {{fields.zeit}}"
+            fields:
+              - { label: "Tag", name: tag, widget: string }
+              - { label: "Uhrzeit (z. B. 10:00 – 18:00 oder geschlossen)", name: zeit, widget: string }
+          - { label: "Zusatzhinweis unter den Öffnungszeiten (optional)", name: zusatz, widget: string, required: false }
+
+      - name: hinweis
+        label: "Hinweisbanner (z. B. Urlaub)"
+        file: content/hinweis.json
+        fields:
+          - { label: "Banner anzeigen?", name: aktiv, widget: boolean, default: false }
+          - { label: "Text im Banner", name: text, widget: string }
+
+      - name: allgemein
+        label: "Kontakt & Adresse"
+        file: content/allgemein.json
+        fields:
+          - { label: "Name des Ladens", name: name, widget: string }
+          - { label: "Inhaber (für das Impressum)", name: inhaber, widget: string }
+          - { label: "Straße und Hausnummer", name: strasse, widget: string }
+          - { label: "PLZ", name: plz, widget: string }
+          - { label: "Ort", name: ort, widget: string }
+          - { label: "Telefon", name: telefon, widget: string }
+          - { label: "E-Mail", name: email, widget: string }
+          - { label: "Hinweis zur Anfahrt (Parken, Bus …)", name: anfahrt_hinweis, widget: string, required: false }
+          - { label: "Bild für die Anfahrt (z. B. Kartenausschnitt oder Ladenfoto)", name: anfahrt_bild, widget: image, required: false }
+          - { label: "Text im Kontaktbereich", name: kontakt_text, widget: text }
+          - { label: "Link zum eBay-Shop", name: ebay_shop_link, widget: string }
+          - { label: "Umsatzsteuer-ID (falls vorhanden)", name: ust_id, widget: string, required: false }
+
+      - name: startseite
+        label: "Texte Startseite"
+        file: content/startseite.json
+        fields:
+          - { label: "Kleine Zeile über der Überschrift", name: kicker, widget: string }
+          - { label: "Große Überschrift", name: titel, widget: string }
+          - { label: "Text unter der Überschrift", name: text, widget: text }
+          - { label: "Button zum Shop", name: button_shop, widget: string }
+          - { label: "Button Ankauf", name: button_ankauf, widget: string }
+          - { label: "Überschrift über den neuen Artikeln", name: shop_titel, widget: string }
+          - { label: "Kleine Zeile über „Kontakt“", name: kontakt_kicker, widget: string }
+
+      - name: shop
+        label: "Texte Shop-Seite"
+        file: content/shop.json
+        fields:
+          - { label: "Überschrift", name: titel, widget: string }
+          - { label: "Text unter der Überschrift", name: text, widget: text }
+          - { label: "Text unten auf der Seite", name: nicht_gefunden, widget: string }
