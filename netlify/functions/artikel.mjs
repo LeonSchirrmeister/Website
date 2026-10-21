@@ -6,8 +6,9 @@
 //   EBAY_CLIENT_ID      App ID (Client ID) aus dem eBay-Entwicklerkonto, Production
 //   EBAY_CLIENT_SECRET  Cert ID (Client Secret), Production – geheim halten
 //   EBAY_SELLER         eBay-Verkäufername von Leon
-//   EBAY_CATEGORY_IDS   eBay-Kategorie-IDs, in denen Leon verkauft, mit Komma getrennt
-//                       (die Browse API verlangt eine Kategorie oder ein Suchwort)
+//   EBAY_CATEGORY_IDS   eBay-Kategorie-ID, unter der Leon verkauft (inkl. Unterkategorien).
+//                       Für Leon: 22128 (Spielzeug › Modellbau). Die Browse API verlangt eine Kategorie oder ein Suchwort.
+//   EBAY_SELLER         Für Leon: modellbahn-schirrmeister
 // Optional:
 //   EBAY_MARKETPLACE    Standard: EBAY_DE
 //   EBAY_MAX            Höchstzahl Artikel, Standard: 1000
@@ -38,6 +39,21 @@ async function holeToken(id, secret) {
 
 const KAUFART = { FIXED_PRICE: 'Sofort-Kaufen', AUCTION: 'Auktion', BEST_OFFER: 'Preisvorschlag' };
 
+// Spurweite aus dem Titel lesen, z. B. "MÄRKLIN H0 …", "PIKO N …", "MÄRKLIN Spur Z …"
+function spurweite(titel = '') {
+  const t = ` ${titel} `;
+  if (/\bH0e\b/i.test(t)) return 'Spur H0e';
+  if (/\bH0m\b/i.test(t)) return 'Spur H0m';
+  if (/\bH0\b|\bHO\b/i.test(t)) return 'Spur H0';
+  if (/\bTT\b/.test(t)) return 'Spur TT';
+  if (/\bSpur\s*Z\b|\sZ\s/.test(t)) return 'Spur Z';
+  if (/\bSpur\s*N\b|\sN\s/.test(t)) return 'Spur N';
+  if (/\bLGB\b|\bSpur\s*G\b|\bSpur\s*IIm?\b/i.test(t)) return 'Spur G';
+  if (/\bSpur\s*1\b|\bSpur\s*I\b/.test(t)) return 'Spur 1';
+  if (/\bSpur\s*0\b/.test(t)) return 'Spur 0';
+  return 'Sonstiges';
+}
+
 function vereinfache(item) {
   const preis = item.price || item.currentBidPrice || {};
   const bild = item.image?.imageUrl || item.thumbnailImages?.[0]?.imageUrl || item.additionalImages?.[0]?.imageUrl || null;
@@ -49,7 +65,8 @@ function vereinfache(item) {
     bild: bild ? bild.replace(/s-l\d+\./, 's-l500.') : null,
     link: item.itemAffiliateWebUrl || item.itemWebUrl,
     zustand: item.condition || '',
-    kategorie: item.categories?.[0]?.categoryName || '',
+    kategorie: spurweite(item.title),
+    unterkategorie: item.categories?.[0]?.categoryName || '',
     kaufart: (item.buyingOptions || []).map((b) => KAUFART[b]).filter(Boolean)[0] || '',
     eingestellt: item.itemCreationDate || null,
   };
