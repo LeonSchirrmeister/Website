@@ -79,7 +79,7 @@
       z.tage.forEach(function (t) {
         var zeile = el('div', { class: 'tafel-zeile' + (t.tag === heute ? ' heute' : '') }, [
           el('dt', { text: t.tag || '' }),
-          el('dd', { text: t.zeit || '' })
+          el('dd', {}, String(t.zeit || '').split(/\s+und\s+|\s*,\s*/).map(function (teil) { return el('span', { text: teil }); }))
         ]);
         tafel.appendChild(zeile);
       });
