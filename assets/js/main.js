@@ -50,6 +50,11 @@
       else if (typeof v === 'string' && e.tagName === 'P') e.hidden = true;
     });
 
+    $$('[data-nur-wenn]').forEach(function (e) {
+      var v = wert(inhalt, e.getAttribute('data-nur-wenn'));
+      e.hidden = !(typeof v === 'string' && v.trim() !== '');
+    });
+
     var a = inhalt.allgemein || {};
     if (a.telefon) $$('[data-telefon]').forEach(function (e) { e.textContent = a.telefon; e.href = telLink(a.telefon); });
     if (a.email) $$('[data-email]').forEach(function (e) { e.textContent = a.email; e.href = 'mailto:' + a.email; });
