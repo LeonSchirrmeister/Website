@@ -9,8 +9,8 @@ backend:
     uploadMedia: "Bild hochgeladen: {{path}}"
 
 locale: de
-site_url: https://www.LEONS-DOMAIN.de          # ← anpassen
-display_url: https://www.LEONS-DOMAIN.de       # ← anpassen
+site_url: https://monumental-platypus-fb1dd7.netlify.app   # später auf Leons Domain ändern
+display_url: https://monumental-platypus-fb1dd7.netlify.app
 logo_url: /assets/img/logo-klein.webp
 
 media_folder: assets/img/uploads
