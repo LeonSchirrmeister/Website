@@ -1,13 +1,13 @@
 {
-  "name": "Leon Schirrmeister Modellbahnen",
-  "inhaber": "[Vor- und Nachname Inhaber]",
-  "strasse": "Bült 19",
-  "plz": "48143",
-  "ort": "Münster",
-  "telefon": "0251 51657",
-  "email": "[info@ladenname.de]",
-  "anfahrt_hinweis": "[Parken / Bus-Haltestelle in der Nähe]",
-  "ebay_shop_link": "https://www.ebay.de/str/modellbahnschirrmeister",
   "ust_id": "",
-  "kontakt_text": "Schreiben Sie uns oder rufen Sie einfach an – wir melden uns so schnell wie möglich."
+  "anfahrt_hinweis": "[Parken / Bus-Haltestelle in der Nähe]",
+  "name": "Leon Schirrmeister Modellbahnen",
+  "kontakt_text": "Schreiben Sie uns oder rufen Sie einfach an – wir melden uns so schnell wie möglich.",
+  "inhaber": "Leon Schirrmeister",
+  "ort": "Münster",
+  "strasse": "Bült 19",
+  "ebay_shop_link": "https://www.ebay.de/str/modellbahnschirrmeister",
+  "telefon": "0251 51657",
+  "email": "info@modellbahn-schirrmeister.de",
+  "plz": "48143"
 }
