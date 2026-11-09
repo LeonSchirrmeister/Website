@@ -35,8 +35,13 @@ Ohne eBay-Zugangsdaten zeigt die Seite **Beispielartikel** (Demo-Modus).
    - optional `EBAY_MARKETPLACE` (Standard `EBAY_DE`)
    Danach neu deployen. Unter `/api/artikel` steht dann `"modus": "live"`.
 6. **Domain:** In Netlify die Domain hinzufügen, bei Strato die DNS-Einträge auf Netlify zeigen lassen (wie beim Schützenverein). E-Mail-Einträge (MX) bei Strato nicht anfassen.
-7. **Hinweis:** Die Öffnungszeiten stehen zusätzlich für Google fest in `index.html` (Block `application/ld+json`). Ändern sich die Zeiten dauerhaft, dort mit anpassen.
-8. **Vor dem Livegang:** Platzhalter in eckigen Klammern ersetzen (geht alles im CMS), Impressum und Datenschutz prüfen, Formular testen.
+7. **Öffnungszeiten aus Google:** Die Funktion `netlify/functions/oeffnungszeiten.mjs` (`/api/oeffnungszeiten`) holt die Zeiten aus Leons Google-Profil (Google Places API, neu), alle 6 Stunden. Einrichtung:
+   - Google Cloud Console → neues Projekt → Abrechnungskonto verknüpfen → API „Places API (New)“ aktivieren.
+   - Unter *APIs & Dienste → Anmeldedaten* einen API-Schlüssel erstellen und auf „Places API (New)“ beschränken.
+   - In Netlify als `GOOGLE_PLACES_API_KEY` eintragen, neu veröffentlichen. Unter `/api/oeffnungszeiten` steht dann `"quelle": "google"` und die Place ID (kann optional als `GOOGLE_PLACE_ID` hinterlegt werden).
+   - Ohne Schlüssel zeigt die Seite die Zeiten aus der Bearbeitungsoberfläche.
+8. **Karte:** Google Maps wird erst nach Klick auf „Karte anzeigen“ geladen (Datenschutz). Kein Schlüssel nötig.
+9. **Vor dem Livegang:** Platzhalter in eckigen Klammern ersetzen (geht alles im CMS), Impressum und Datenschutz prüfen, Formular testen.
 
 ## Für Leon: Inhalte ändern
 

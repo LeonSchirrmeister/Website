@@ -15,7 +15,7 @@
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Store","name":"Leon Schirrmeister Modellbahn An- und Verkauf","image":"/assets/img/logo.png","telephone":"+49 251 51657","address":{"@type":"PostalAddress","streetAddress":"Bült 19","postalCode":"48143","addressLocality":"Münster","addressCountry":"DE"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"11:00","closes":"13:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"15:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"11:00","closes":"16:00"}],"sameAs":["https://www.ebay.de/str/modellbahnschirrmeister","https://www.instagram.com/schirrmeister_modellbahn/"]}
+{"@context":"https://schema.org","@type":"Store","name":"Leon Schirrmeister Modellbahn An- und Verkauf","image":"/assets/img/logo.png","telephone":"+49 251 51657","address":{"@type":"PostalAddress","streetAddress":"Bült 19","postalCode":"48143","addressLocality":"Münster","addressCountry":"DE"},"sameAs":["https://www.ebay.de/str/modellbahnschirrmeister","https://www.instagram.com/schirrmeister_modellbahn/"]}
 </script>
 
 <script src="/assets/js/main.js" defer></script>
@@ -92,6 +92,7 @@
           <div class="tafel-zeile"><dt>Samstag</dt><dd>11:00 – 16:00</dd></div>
           <div class="tafel-zeile"><dt>Sonntag</dt><dd>geschlossen</dd></div>
         </dl>
+        <p class="sonderzeiten" data-sonderzeiten hidden></p>
         <p class="zusatz" data-inhalt="oeffnungszeiten.zusatz"></p>
       </div>
       <div class="anfahrt-spalte" id="anfahrt">
@@ -99,7 +100,13 @@
           <span class="kicker">So finden Sie uns</span>
           <h2>Anfahrt</h2>
         </div>
-        <div class="karte" data-anfahrt-bild>[Kartenausschnitt als Bild – ohne Google-Maps-Einbettung]</div>
+        <div class="karte" data-karte>
+          <div class="karte-hinweis">
+            <p>Hier können Sie sich die Lage des Ladens auf Google Maps anzeigen lassen. Dabei werden Daten an Google übertragen. Mehr dazu in der <a href="/datenschutz.html">Datenschutzerklärung</a>.</p>
+            <button class="btn btn-gold" type="button" data-karte-laden>Karte anzeigen</button>
+            <label class="karte-merken"><input type="checkbox" data-karte-merken> Karte künftig direkt anzeigen</label>
+          </div>
+        </div>
         <address class="adresse">
           <strong data-inhalt="allgemein.name">Leon Schirrmeister Modellbahnen</strong>
           <span><span data-inhalt="allgemein.strasse">Bült 19</span>, <span data-inhalt="allgemein.plz">48143</span> <span data-inhalt="allgemein.ort">Münster</span></span>
