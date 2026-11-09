@@ -31,7 +31,7 @@ async function holeToken(id, secret) {
     },
     body: new URLSearchParams({ grant_type: 'client_credentials', scope: SCOPE }),
   });
-  if (!res.ok) throw new Error(`eBay-Token fehlgeschlagen (${res.status})`);
+  if (!res.ok) throw new Error(`eBay-Token fehlgeschlagen (${res.status}): ${(await res.text()).slice(0, 300)}`);
   const daten = await res.json();
   tokenCache = { wert: daten.access_token, bis: Date.now() + (daten.expires_in - 120) * 1000 };
   return tokenCache.wert;
@@ -146,7 +146,12 @@ function antwort(daten, sekunden) {
 }
 
 export default async function handler() {
-  const env = process.env;
+  // Werte ohne versehentliche Leerzeichen übernehmen
+  const env = Object.fromEntries(
+    ['EBAY_CLIENT_ID', 'EBAY_CLIENT_SECRET', 'EBAY_SELLER', 'EBAY_CATEGORY_IDS', 'EBAY_MARKETPLACE', 'EBAY_MAX']
+      .map((k) => [k, (process.env[k] || '').trim()])
+      .filter(([, v]) => v)
+  );
   const fehlt = ['EBAY_CLIENT_ID', 'EBAY_CLIENT_SECRET', 'EBAY_SELLER', 'EBAY_CATEGORY_IDS'].filter((k) => !env[k]);
 
   if (fehlt.length) {
@@ -158,7 +163,8 @@ export default async function handler() {
     return antwort({ modus: 'live', aktualisiert: new Date().toISOString(), artikel }, 3600);
   } catch (err) {
     console.error(err);
-    return new Response(JSON.stringify({ modus: 'fehler', artikel: [] }), {
+    // Fehlermeldung von eBay mit ausgeben (enthält keine Schlüssel), damit man die Ursache sieht
+    return new Response(JSON.stringify({ modus: 'fehler', fehler: String(err.message || err).slice(0, 600), artikel: [] }), {
       status: 502,
       headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
     });
