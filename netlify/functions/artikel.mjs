@@ -140,7 +140,7 @@ function antwort(daten, sekunden) {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'public, max-age=300',
-      'Netlify-CDN-Cache-Control': `public, s-maxage=${sekunden}, stale-while-revalidate=86400`,
+      'Netlify-CDN-Cache-Control': `public, durable, s-maxage=${sekunden}, stale-while-revalidate=86400`,
     },
   });
 }
