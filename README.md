@@ -41,7 +41,7 @@ Ohne eBay-Zugangsdaten zeigt die Seite **Beispielartikel** (Demo-Modus).
 
 ## Für Leon: Inhalte ändern
 
-`https://DEINE-DOMAIN.de/admin` → „Mit GitHub anmelden“ → Bereich wählen (Öffnungszeiten, Hinweisbanner, Kontakt & Adresse, Texte) → ändern → **Veröffentlichen**. Nach ca. einer Minute ist die Änderung online. Den Shop muss niemand pflegen, der kommt automatisch aus eBay.
+`https://modellbahn-schirrmeister.de/admin` → „Mit GitHub anmelden“ → Bereich wählen (Öffnungszeiten, Hinweisbanner, Kontakt & Adresse, Texte) → ändern → **Veröffentlichen**. Nach ca. einer Minute ist die Änderung online. Den Shop muss niemand pflegen, der kommt automatisch aus eBay.
 
 ## Lokal ansehen
 
@@ -49,3 +49,7 @@ Ohne eBay-Zugangsdaten zeigt die Seite **Beispielartikel** (Demo-Modus).
 node dev-server.mjs
 ```
 Dann http://localhost:8080 öffnen (zeigt Beispielartikel).
+
+## Netlify-Credits beachten
+
+Der kostenlose Netlify-Tarif hat 300 Credits pro Monat, jede Veröffentlichung kostet 15 Credits (also ca. 20 Veröffentlichungen im Monat). Jede gespeicherte Änderung im CMS und jeder Commit auf `main` löst eine Veröffentlichung aus. Mehrere technische Commits deshalb bündeln oder alle außer dem letzten mit `[skip netlify]` in der Commit-Nachricht versehen. eBay-Artikel und Google-Öffnungszeiten brauchen keine Veröffentlichung.
