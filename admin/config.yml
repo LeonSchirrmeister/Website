@@ -9,8 +9,8 @@ backend:
     uploadMedia: "Bild hochgeladen: {{path}}"
 
 locale: de
-site_url: https://monumental-platypus-fb1dd7.netlify.app   # später auf Leons Domain ändern
-display_url: https://monumental-platypus-fb1dd7.netlify.app
+site_url: https://modellbahn-schirrmeister.de
+display_url: https://modellbahn-schirrmeister.de
 logo_url: /assets/img/logo-klein.webp
 
 media_folder: assets/img/uploads
