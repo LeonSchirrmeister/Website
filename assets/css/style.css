@@ -235,6 +235,26 @@ a.info-wert:hover { color: var(--navy); text-decoration: underline; }
   .artikel-abschnitt { padding-top: 56px; padding-bottom: 56px; }
   .formular { padding: 22px; }
   .suche { flex: 1 1 100%; }
+
+  /* Startseite: neue Artikel als Wisch-Slider */
+  .artikel-raster[data-artikel-teaser] {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    margin: 0 -24px;
+    padding: 4px 24px 14px;
+    scroll-padding-left: 24px;
+    scrollbar-width: none;
+  }
+  .artikel-raster[data-artikel-teaser]::-webkit-scrollbar { display: none; }
+  .artikel-raster[data-artikel-teaser] > li {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+  .artikel-raster[data-artikel-teaser] > .meldung { flex-basis: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
