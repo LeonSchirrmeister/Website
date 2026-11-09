@@ -5,14 +5,15 @@ import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import handler from './netlify/functions/artikel.mjs';
+import zeiten from './netlify/functions/oeffnungszeiten.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const typen = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.png': 'image/png', '.webp': 'image/webp', '.woff2': 'font/woff2', '.yml': 'text/yaml', '.svg': 'image/svg+xml' };
 
 http.createServer(async (req, res) => {
   const pfad = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-  if (pfad === '/api/artikel') {
-    const r = await handler();
+  if (pfad === '/api/artikel' || pfad === '/api/oeffnungszeiten') {
+    const r = await (pfad === '/api/artikel' ? handler() : zeiten());
     res.writeHead(r.status, { 'Content-Type': 'application/json; charset=utf-8' });
     return res.end(await r.text());
   }

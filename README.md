@@ -35,7 +35,7 @@ Ohne eBay-Zugangsdaten zeigt die Seite **Beispielartikel** (Demo-Modus).
    - optional `EBAY_MARKETPLACE` (Standard `EBAY_DE`)
    Danach neu deployen. Unter `/api/artikel` steht dann `"modus": "live"`.
 6. **Domain:** In Netlify die Domain hinzufügen, bei Strato die DNS-Einträge auf Netlify zeigen lassen (wie beim Schützenverein). E-Mail-Einträge (MX) bei Strato nicht anfassen.
-7. **Öffnungszeiten:** pflegt Leon in der Bearbeitungsoberfläche und zusätzlich im Google-Unternehmensprofil (kein automatischer Abgleich, bewusst ohne kostenpflichtige Google-Schnittstelle).
+7. **Öffnungszeiten aus Google:** `netlify/functions/oeffnungszeiten.mjs` (`/api/oeffnungszeiten`) holt die Zeiten alle 6 Stunden aus Leons Google-Profil (Places API, neu; Place ID fest im Code). Schlüssel steht in Netlify als `GOOGLE_PLACES_API_KEY`. Google-Konto läuft als kostenlose Testphase (90 Tage ab 09.11.2026, keine Abbuchung ohne aktives Umstellen). Danach entweder auf vollständiges Konto umstellen und Kontingente für Place Details auf 100/Tag begrenzen, oder nichts tun: Dann zeigt die Seite automatisch die Zeiten aus der Bearbeitungsoberfläche.
 8. **Karte:** Google Maps wird erst nach Klick auf „Karte anzeigen“ geladen (Datenschutz). Kein Schlüssel nötig.
 9. **Vor dem Livegang:** Platzhalter in eckigen Klammern ersetzen (geht alles im CMS), Impressum und Datenschutz prüfen, Formular testen.
 
