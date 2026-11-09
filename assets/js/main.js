@@ -70,7 +70,7 @@
     zeichneTafel((inhalt.oeffnungszeiten || {}).tage);
   }
 
-  /* ---------- Öffnungszeiten (Google, sonst Bearbeitungsoberfläche) ---------- */
+  /* ---------- Öffnungszeiten ---------- */
 
   function zeichneTafel(tage) {
     var tafel = $('[data-oeffnungszeiten]');
