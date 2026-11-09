@@ -24,8 +24,9 @@ collections:
     files:
 
       - name: oeffnungszeiten
-        label: "Öffnungszeiten"
+        label: "Öffnungszeiten (Ersatz)"
         file: content/oeffnungszeiten.json
+        description: "Die Website zeigt automatisch die Öffnungszeiten aus dem Google-Profil. Bitte Zeiten deshalb bei Google ändern. Die Zeiten hier erscheinen nur, falls Google einmal nicht erreichbar ist. Der Zusatzhinweis unten wird immer angezeigt."
         fields:
           - label: "Tage"
             name: tage
@@ -56,7 +57,6 @@ collections:
           - { label: "Telefon", name: telefon, widget: string }
           - { label: "E-Mail", name: email, widget: string }
           - { label: "Hinweis zur Anfahrt (Parken, Bus …)", name: anfahrt_hinweis, widget: string, required: false }
-          - { label: "Bild für die Anfahrt (z. B. Kartenausschnitt oder Ladenfoto)", name: anfahrt_bild, widget: image, required: false }
           - { label: "Text im Kontaktbereich", name: kontakt_text, widget: text }
           - { label: "Link zum eBay-Shop", name: ebay_shop_link, widget: string }
           - { label: "Umsatzsteuer-ID (falls vorhanden)", name: ust_id, widget: string, required: false }
