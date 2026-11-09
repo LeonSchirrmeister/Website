@@ -4,39 +4,24 @@
 //
 // Umgebungsvariablen in Netlify:
 //   GOOGLE_PLACES_API_KEY  API-Schlüssel aus der Google Cloud Console (nur für "Places API (New)" freigeben)
-//   GOOGLE_PLACE_ID        optional: die Place ID des Ladens. Fehlt sie, sucht die Funktion den Laden
-//                          einmal über GOOGLE_PLACE_SUCHE (Standard siehe unten).
+//   GOOGLE_PLACE_ID        optional, Standard: Leons Laden (siehe unten)
 //
-// Fehlt der Schlüssel oder antwortet Google nicht, liefert die Funktion { quelle: "keine" }
-// und die Website zeigt die Zeiten aus der Bearbeitungsoberfläche.
+// Fehlt der Schlüssel oder antwortet Google nicht (z. B. nach Ende der Google-Testphase),
+// liefert die Funktion { quelle: "keine" } und die Website zeigt die Zeiten aus der Bearbeitungsoberfläche.
 
-const SUCHE_STANDARD = 'Leon Schirrmeister Modellbahn An- und Verkauf, Bült 19, 48143 Münster';
+// Place ID von "Leon Schirrmeister Modellbahn An- und Verkauf", Bült 19, 48143 Münster (öffentlich, kein Geheimnis)
+const PLACE_ID_STANDARD = 'ChIJ43S2degBcEERsSTRLE9LdXY';
 const TAGE = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
-let placeIdCache = null;
-
-async function findePlaceId(key, suche) {
-  if (placeIdCache) return placeIdCache;
-  const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': 'places.id' },
-    body: JSON.stringify({ textQuery: suche, languageCode: 'de', regionCode: 'DE' }),
-  });
-  if (!res.ok) throw new Error(`Google-Suche fehlgeschlagen (${res.status}): ${(await res.text()).slice(0, 300)}`);
-  const daten = await res.json();
-  const id = daten.places?.[0]?.id;
-  if (!id) throw new Error('Laden bei Google nicht gefunden');
-  placeIdCache = id;
-  return id;
-}
-
-// "Dienstag: 11:00–13:00, 15:00–18:00" → { tag: "Dienstag", zeit: "11:00 – 13:00, 15:00 – 18:00" }
+// "Dienstag: 11:00–13:00 Uhr, 15:00–18:00 Uhr" → { tag: "Dienstag", zeit: "11:00 – 13:00, 15:00 – 18:00" }
 function zerlege(zeile) {
   const i = zeile.indexOf(':');
   const tag = zeile.slice(0, i).trim();
   let zeit = zeile.slice(i + 1).trim()
     .replace(/ | | /g, ' ')
-    .replace(/\s*[–-]\s*/g, ' – ');
+    .replace(/\s*Uhr\b/g, '')
+    .replace(/\s*[–-]\s*/g, ' – ')
+    .trim();
   if (/^geschlossen$/i.test(zeit)) zeit = 'geschlossen';
   if (/^24 Stunden geöffnet$/i.test(zeit)) zeit = 'durchgehend geöffnet';
   return { tag, zeit };
@@ -63,9 +48,7 @@ export default async function handler() {
   if (!key) return antwort({ quelle: 'keine', hinweis: 'GOOGLE_PLACES_API_KEY fehlt' }, 600);
 
   try {
-    const placeId = (process.env.GOOGLE_PLACE_ID || '').trim()
-      || await findePlaceId(key, (process.env.GOOGLE_PLACE_SUCHE || SUCHE_STANDARD).trim());
-
+    const placeId = (process.env.GOOGLE_PLACE_ID || '').trim() || PLACE_ID_STANDARD;
     const res = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?languageCode=de&regionCode=DE`, {
       headers: { 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': 'regularOpeningHours.weekdayDescriptions,currentOpeningHours.weekdayDescriptions' },
     });
