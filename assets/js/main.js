@@ -61,29 +61,71 @@
         encodeURIComponent([a.name, a.strasse, a.plz, a.ort].filter(Boolean).join(', '));
     }
 
-    var karte = $('[data-anfahrt-bild]');
-    if (karte && a.anfahrt_bild) {
-      karte.textContent = '';
-      karte.appendChild(el('img', { src: a.anfahrt_bild, alt: 'Lageplan: So finden Sie den Laden', loading: 'lazy' }));
-    }
+    karteVorbereiten(a);
 
     var h = inhalt.hinweis || {};
     var banner = $('[data-hinweis]');
     if (banner && h.aktiv && h.text) { banner.textContent = h.text; banner.hidden = false; }
 
+    zeichneTafel((inhalt.oeffnungszeiten || {}).tage);
+  }
+
+  /* ---------- Öffnungszeiten (Google, sonst Bearbeitungsoberfläche) ---------- */
+
+  function zeichneTafel(tage) {
     var tafel = $('[data-oeffnungszeiten]');
-    var z = inhalt.oeffnungszeiten || {};
-    if (tafel && Array.isArray(z.tage) && z.tage.length) {
-      tafel.textContent = '';
-      var heute = WOCHENTAGE[new Date().getDay()];
-      z.tage.forEach(function (t) {
-        var zeile = el('div', { class: 'tafel-zeile' + (t.tag === heute ? ' heute' : '') }, [
-          el('dt', { text: t.tag || '' }),
-          el('dd', {}, String(t.zeit || '').split(/\s+und\s+|\s*,\s*/).map(function (teil) { return el('span', { text: teil }); }))
-        ]);
-        tafel.appendChild(zeile);
-      });
+    if (!tafel || !Array.isArray(tage) || !tage.length) return;
+    tafel.textContent = '';
+    var heute = WOCHENTAGE[new Date().getDay()];
+    tage.forEach(function (t) {
+      tafel.appendChild(el('div', { class: 'tafel-zeile' + (t.tag === heute ? ' heute' : '') }, [
+        el('dt', { text: t.tag || '' }),
+        el('dd', {}, String(t.zeit || '').split(/\s+und\s+|\s*,\s*/).map(function (teil) { return el('span', { text: teil }); }))
+      ]));
+    });
+  }
+
+  function googleZeiten() {
+    if (!$('[data-oeffnungszeiten]')) return;
+    holeJson('/api/oeffnungszeiten').then(function (d) {
+      if (!d || d.quelle !== 'google' || !Array.isArray(d.tage) || d.tage.length !== 7) return;
+      zeichneTafel(d.tage);
+      var box = $('[data-sonderzeiten]');
+      if (box && Array.isArray(d.abweichungen) && d.abweichungen.length) {
+        box.textContent = 'Diese Woche abweichend: ' + d.abweichungen.map(function (x) { return x.tag + ' ' + x.zeit; }).join(' · ');
+        box.hidden = false;
+      }
+    }).catch(function () { /* dann bleiben die Zeiten aus der Bearbeitungsoberfläche stehen */ });
+  }
+
+  /* ---------- Karte (Google Maps erst nach Klick, wegen Datenschutz) ---------- */
+
+  var KARTE_OK = 'karte-erlaubt';
+
+  function karteVorbereiten(a) {
+    var box = $('[data-karte]');
+    if (!box) return;
+    var ziel = [a.name, a.strasse, [a.plz, a.ort].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+    function laden() {
+      box.textContent = '';
+      box.classList.add('karte-geladen');
+      box.appendChild(el('iframe', {
+        src: 'https://www.google.com/maps?q=' + encodeURIComponent(ziel) + '&z=16&hl=de&output=embed',
+        title: 'Karte: So finden Sie ' + (a.name || 'den Laden'),
+        loading: 'lazy',
+        referrerpolicy: 'no-referrer-when-downgrade',
+        allowfullscreen: ''
+      }));
     }
+    var knopf = $('[data-karte-laden]', box);
+    if (knopf) knopf.addEventListener('click', function () {
+      var merken = $('[data-karte-merken]', box);
+      if (merken && merken.checked) { try { localStorage.setItem(KARTE_OK, '1'); } catch (e) {} }
+      laden();
+    });
+    var erlaubt = false;
+    try { erlaubt = localStorage.getItem(KARTE_OK) === '1'; } catch (e) {}
+    if (erlaubt) laden();
   }
 
   /* ---------- eBay-Artikel ---------- */
@@ -221,6 +263,7 @@
 
   ladeInhalte().then(function (inhalt) {
     fuelleInhalte(inhalt);
+    googleZeiten();
     var seite = document.body.getAttribute('data-seite');
     if (seite === 'start') startseiteTeaser(inhalt);
     if (seite === 'shop') shopSeite(inhalt);
