@@ -26,7 +26,7 @@ collections:
       - name: oeffnungszeiten
         label: "Öffnungszeiten (Ersatz)"
         file: content/oeffnungszeiten.json
-        description: "Die Website zeigt automatisch die Öffnungszeiten aus dem Google-Profil. Bitte Zeiten deshalb bei Google ändern. Die Zeiten hier erscheinen nur, falls Google einmal nicht erreichbar ist. Der Zusatzhinweis unten wird immer angezeigt."
+        description: "Die Website zeigt automatisch die Öffnungszeiten aus dem Google-Profil. Bitte Zeiten deshalb bei Google ändern. Die Zeiten hier erscheinen nur, falls Google nicht erreichbar ist (z. B. nach Ende der Google-Testphase). Der Zusatzhinweis unten wird immer angezeigt."
         fields:
           - label: "Tage"
             name: tage
